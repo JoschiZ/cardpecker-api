@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.Api", "Cardpecker.Api\Cardpecker.Api.csproj", "{589EC321-59BD-4416-BA86-DBEDF4B53618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.AppHost", "Cardpecker.AppHost\Cardpecker.AppHost.csproj", "{69B9887F-6032-475E-B6A2-4A7A6091F426}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.ServiceDefaults", "Cardpecker.ServiceDefaults\Cardpecker.ServiceDefaults.csproj", "{706BAD79-DBE7-497D-9EF1-D8A095D952CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{589EC321-59BD-4416-BA86-DBEDF4B53618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589EC321-59BD-4416-BA86-DBEDF4B53618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589EC321-59BD-4416-BA86-DBEDF4B53618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589EC321-59BD-4416-BA86-DBEDF4B53618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B9887F-6032-475E-B6A2-4A7A6091F426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B9887F-6032-475E-B6A2-4A7A6091F426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B9887F-6032-475E-B6A2-4A7A6091F426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B9887F-6032-475E-B6A2-4A7A6091F426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
