@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.AppHost", "Cardp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.ServiceDefaults", "Cardpecker.ServiceDefaults\Cardpecker.ServiceDefaults.csproj", "{706BAD79-DBE7-497D-9EF1-D8A095D952CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScryfallApi.Client", "ScryfallApi.Client\ScryfallApi.Client.csproj", "{DB78B931-79BE-4697-86BC-937C0B2817EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{706BAD79-DBE7-497D-9EF1-D8A095D952CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

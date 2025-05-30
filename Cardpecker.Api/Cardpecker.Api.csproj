@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cardpecker.ServiceDefaults\Cardpecker.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\ScryfallApi.Client\ScryfallApi.Client.csproj" />
     </ItemGroup>
 
 </Project>

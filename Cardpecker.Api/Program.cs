@@ -4,6 +4,7 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using ScryfallApi.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -40,7 +41,7 @@ services.AddDbContextPool<PeckerContext>(x =>
     });
 });
 builder.EnrichNpgsqlDbContext<PeckerContext>();
-
+services.AddScryfallApiClient();
 
 
 
