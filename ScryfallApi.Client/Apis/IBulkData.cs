@@ -24,5 +24,5 @@ public interface IBulkData
     /// <param name="updatedSince"></param>
     /// <param name="bulkDataType"></param>
     /// <returns></returns>
-    Task<BulkDataItem> Get(DateTimeOffset updatedSince, string bulkDataType);
+    Task<BulkDataItem?> Get(DateTimeOffset updatedSince, string bulkDataType);
 }

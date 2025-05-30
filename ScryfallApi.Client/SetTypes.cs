@@ -63,8 +63,8 @@ public class SetType : IEquatable<string>, IComparable, IComparable<string>
     public string Text { get; }
     public string Description { get; }
 
-    public int CompareTo(string other) => Text.CompareTo(other);
-    public int CompareTo(object other) => CompareTo((other as SetType)?.Text);
-    public bool Equals(string other) => Text.Equals(other);
+    public int CompareTo(string? other) => string.Compare(Text, other, StringComparison.Ordinal);
+    public int CompareTo(object? other) => CompareTo((other as SetType)?.Text);
+    public bool Equals(string? other) => Text.Equals(other);
     public override string ToString() => Text;
 }

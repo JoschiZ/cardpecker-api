@@ -20,7 +20,7 @@ public class BulkData : IBulkData
         return bulkData.Data.Where(d => d.LastUpdated >= updatedSince).ToList();
     }
 
-    public async Task<BulkDataItem> Get(DateTimeOffset updatedSince, string bulkDataType) => 
+    public async Task<BulkDataItem?> Get(DateTimeOffset updatedSince, string bulkDataType) => 
         (await Get(updatedSince)).FirstOrDefault(d => d.Type.Equals(bulkDataType, StringComparison.OrdinalIgnoreCase));
 
     public static class Types

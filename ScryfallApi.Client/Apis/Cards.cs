@@ -30,4 +30,12 @@ public class Cards : ICards
         return _restService.GetAsync<ResultList<Card>>($"/cards/search?q={query}&page={page}&{options.BuildQueryString()}");
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+    public Task<Card> Named(string cardName, bool fuzzy, string? setCode = null)
+    {
+        cardName = WebUtility.UrlEncode(cardName);
+        var searchType = fuzzy ? "fuzzy" : "exact";
+        var query = setCode is not null ? $"?set={setCode}" : string.Empty;
+        return _restService.GetAsync<Card>($"/cards/named/{searchType}/{cardName}{query}");
+    }
 }

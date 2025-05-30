@@ -5,6 +5,7 @@
     <ImplicitUsings>true</ImplicitUsings>
     <PackageId>ScryfallAPI.Client</PackageId>
     <PackageTags>scryfall scryfall-api</PackageTags>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   
 

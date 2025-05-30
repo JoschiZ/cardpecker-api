@@ -39,4 +39,13 @@ public interface ICards
     /// <param name="options"></param>
     /// <returns></returns>
     Task<ResultList<Card>> Search(string query, int page, SearchOptions options);
+
+    /// <summary>
+    /// Searches a card by name
+    /// </summary>
+    /// <param name="cardName">the full or partial card name</param>
+    /// <param name="fuzzy">if true, the search will be fuzzy by card name</param>
+    /// <param name="setCode">a set code restriction</param>
+    /// <returns></returns>
+    Task<Card> Named(string cardName, bool fuzzy, string? setCode = null);
 }

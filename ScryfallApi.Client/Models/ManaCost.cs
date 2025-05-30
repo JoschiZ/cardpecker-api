@@ -8,7 +8,7 @@ public class ManaCost : BaseItem
     /// The colors of the given cost.
     /// </summary>
     [JsonPropertyName("colors")]
-    public string[] Colors { get; set; }
+    public required string[] Colors { get; set; }
 
     /// <summary>
     /// The converted mana cost. If you submit Un-set mana symbols, this decimal could include fractional parts.
@@ -20,7 +20,7 @@ public class ManaCost : BaseItem
     /// The normalized cost, with correctly-ordered and wrapped mana symbols.
     /// </summary>
     [JsonPropertyName("cost")]
-    public string Cost { get; set; }
+    public required string Cost { get; set; }
     /// <summary>
     /// True if the cost is colorless.
     /// </summary>

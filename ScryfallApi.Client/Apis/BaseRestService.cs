@@ -7,10 +7,10 @@ namespace ScryfallApi.Client.Apis;
 internal sealed class BaseRestService
 {
     private readonly HttpClient _httpClient;
-    private readonly IMemoryCache _cache;
-    private readonly MemoryCacheEntryOptions _cacheOptions;
+    private readonly IMemoryCache? _cache;
+    private readonly MemoryCacheEntryOptions? _cacheOptions;
 
-    public BaseRestService(HttpClient httpClient, ScryfallApiClientConfig clientConfig, IMemoryCache cache)
+    public BaseRestService(HttpClient httpClient, ScryfallApiClientConfig clientConfig, IMemoryCache? cache)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _httpClient.BaseAddress ??= clientConfig.ScryfallApiBaseAddress;
@@ -33,21 +33,24 @@ internal sealed class BaseRestService
 
         var cacheKey = _httpClient.BaseAddress?.AbsoluteUri + resourceUrl;
 
-        if (useCache && _cache != null && _cache.TryGetValue(cacheKey, out T cached))
-            return cached;
+        if (useCache && _cache is not null && _cache.TryGetValue(cacheKey, out var cached))
+        {
+            return cached as T ?? throw new ScryfallApiException("Unexpected null value from cache.");
+        }
+            
 
         var response = await _httpClient.GetAsync(resourceUrl).ConfigureAwait(false);
         var jsonStream = await response.Content.ReadAsStreamAsync();
-        var obj = await JsonSerializer.DeserializeAsync<T>(jsonStream);
-
+        var obj = await JsonSerializer.DeserializeAsync<T>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
+        
         if (obj.ObjectType.Equals("error", StringComparison.OrdinalIgnoreCase))
         {
             jsonStream.Position = 0;
-            var error = await JsonSerializer.DeserializeAsync<Error>(jsonStream);
+            var error = await JsonSerializer.DeserializeAsync<Error>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
             throw new ScryfallApiException(error.Details)
             {
                 ResponseStatusCode = response.StatusCode,
-                RequestUri = response.RequestMessage?.RequestUri,
+                RequestUri = response.RequestMessage?.RequestUri ,
                 RequestMethod = response.RequestMessage?.Method,
                 ScryfallError = error
             };

@@ -33,7 +33,7 @@ public class ScryfallApiClient : IScryfallApiClient
     /// <param name="httpClient"></param>
     /// <param name="clientConfig"></param>
     /// <param name="cache"></param>
-    public ScryfallApiClient(HttpClient httpClient, ScryfallApiClientConfig clientConfig = null, IMemoryCache cache = null)
+    public ScryfallApiClient(HttpClient httpClient, ScryfallApiClientConfig? clientConfig = null, IMemoryCache? cache = null)
     {
         if (clientConfig is null)
         {

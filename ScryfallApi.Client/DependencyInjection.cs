@@ -16,7 +16,7 @@ public static class DependencyInjection
 
     public static IHttpClientBuilder AddScryfallApiClient(this IServiceCollection services, ScryfallApiClientConfig clientConfig)
     {
-        services.AddScoped(services => clientConfig.Clone());
+        services.AddScoped(_ => clientConfig.Clone());
         var clientBuilder = services.AddHttpClient<ScryfallApiClient>(client =>
         {
             client.BaseAddress = clientConfig.ScryfallApiBaseAddress;

@@ -15,13 +15,13 @@ public class Symbol : BaseItem, IEquatable<string>, IComparable, IComparable<str
     /// An array of colors that this symbol represents.
     /// </summary>
     [JsonPropertyName("colors")]
-    public string[] Colors { get; set; }
+    public string[] Colors { get; set; } = [];
 
     /// <summary>
     /// A decimal number representing this symbol’s converted mana cost. Note that mana symbols from
     /// funny sets can have fractional converted mana costs.
     /// </summary>
-    [JsonPropertyName("cmc")]
+    [JsonPropertyName("mana_value")]
     public decimal? ConvertedManaCost { get; set; }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class Symbol : BaseItem, IEquatable<string>, IComparable, IComparable<str
     /// accessible communication formats.
     /// </summary>
     [JsonPropertyName("english")]
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
     /// <summary>
     /// True if this symbol is only used on funny cards or Un-cards.
@@ -56,16 +56,22 @@ public class Symbol : BaseItem, IEquatable<string>, IComparable, IComparable<str
     /// An alternate version of this symbol, if it is possible to write it without curly braces.
     /// </summary>
     [JsonPropertyName("loose_variant")]
-    public string LooseVariant { get; set; }
+    public string? LooseVariant { get; set; }
 
     /// <summary>
     /// The plaintext symbol. Often surrounded with curly braces {}. Note that not all symbols
     /// are ASCII text (for example, {∞}).
     /// </summary>
     [JsonPropertyName("symbol")]
-    public string Text { get; set; }
-    public int CompareTo(string other) => Text.CompareTo(other);
-    public int CompareTo(object other) => CompareTo((other as Symbol)?.Text);
-    public bool Equals(string other) => Text.Equals(other);
+    public required string Text { get; set; }
+    
+    /// <summary>
+    /// A URI to an SVG image of this symbol on Scryfall’s CDNs
+    /// </summary>
+    [JsonPropertyName("svg_uri")]
+    public Uri? SvgUri { get; set; }
+    public int CompareTo(string? other) => string.Compare(Text, other, StringComparison.Ordinal);
+    public int CompareTo(object? other) => CompareTo((other as Symbol)?.Text);
+    public bool Equals(string? other) => Text.Equals(other);
     public override string ToString() => Text;
 }

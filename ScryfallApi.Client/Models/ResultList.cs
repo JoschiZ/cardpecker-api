@@ -9,7 +9,7 @@ public class ResultList<T> : BaseItem where T : BaseItem
     /// across all pages.
     /// </summary>
     [JsonPropertyName("total_cards")]
-    public int TotalCards { get; set; }
+    public int? TotalCards { get; set; }
 
     /// <summary>
     /// True if this List is paginated and there is a page beyond the current page.
@@ -22,11 +22,14 @@ public class ResultList<T> : BaseItem where T : BaseItem
     /// page. You may submit a HTTP GET request to that URI to continue paginating forward on this List.
     /// </summary>
     [JsonPropertyName("next_page")]
-    public Uri NextPage { get; set; }
+    public Uri? NextPage { get; set; }
 
     /// <summary>
     /// An array of the requested objects, in a specific order.
     /// </summary>
     [JsonPropertyName("data")]
-    public ICollection<T> Data { get; set; }
+    public required ICollection<T> Data { get; set; }
+    
+    [JsonPropertyName("warnings")]
+    public string[]? Warnings { get; set; }
 }
