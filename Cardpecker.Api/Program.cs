@@ -48,7 +48,12 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseFastEndpoints();
+app.UseFastEndpoints(options =>
+{
+    options.Errors.UseProblemDetails();
+    options.Versioning.Prefix = "v";
+    options.Versioning.PrependToRoute = true;
+});
 
 if (app.Environment.IsDevelopment())
 {
