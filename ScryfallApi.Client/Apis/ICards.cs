@@ -13,15 +13,8 @@ public interface ICards
     /// Fetch a card at random.
     /// </summary>
     /// <returns></returns>
-    Task<Card> GetRandom();
-
-    /// <summary>
-    /// Get a page worth of cards
-    /// </summary>
-    /// <param name="page"></param>
-    /// <returns></returns>
-    Task<ResultList<Card>> Get(int page);
-
+    Task<ScryfallResult<Card>> GetRandom();
+    
     /// <summary>
     /// Search for cards with a sort option
     /// </summary>
@@ -29,8 +22,8 @@ public interface ICards
     /// <param name="page"></param>
     /// <param name="sort"></param>
     /// <returns></returns>
-    Task<ResultList<Card>> Search(string query, int page, CardSort sort);
-    
+    Task<ScryfallResult<ResultList<Card>>> Search(string query, int page, CardSort sort);
+
     /// <summary>
     /// Search for cards using the full search options available
     /// </summary>
@@ -38,7 +31,7 @@ public interface ICards
     /// <param name="page"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    Task<ResultList<Card>> Search(string query, int page, SearchOptions options);
+    Task<ScryfallResult<ResultList<Card>>> Search(string query, int page, SearchOptions options);
 
     /// <summary>
     /// Searches a card by name
@@ -47,5 +40,5 @@ public interface ICards
     /// <param name="fuzzy">if true, the search will be fuzzy by card name</param>
     /// <param name="setCode">a set code restriction</param>
     /// <returns></returns>
-    Task<Card> Named(string cardName, bool fuzzy, string? setCode = null);
+    Task<ScryfallResult<Card>> Named(string cardName, bool fuzzy, string? setCode = null);
 }

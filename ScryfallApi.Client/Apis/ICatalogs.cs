@@ -12,7 +12,7 @@ public interface ICatalogs
     /// soon as a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListCardNames();
+    Task<ScryfallResult<string[]>> ListCardNames();
 
     /// <summary>
     /// Returns a Catalog of all English words, of length 2 or more, that could appear in a card name.
@@ -20,75 +20,75 @@ public interface ICatalogs
     /// new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListWordBank();
+    Task<ScryfallResult<string[]>> ListWordBank();
 
     /// <summary>
     /// Returns a Catalog of all creature types in Scryfall’s database. Values are updated as soon as
     /// a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListCreatureTypes();
+    Task<ScryfallResult<string[]>> ListCreatureTypes();
 
     /// <summary>
     /// Returns a Catalog of all Planeswalker types in Scryfall’s database. Values are updated as soon as
     /// a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListPlaneswalkerTypes();
+    Task<ScryfallResult<string[]>> ListPlaneswalkerTypes();
 
     /// <summary>
     /// Returns a Catalog of all Land types in Scryfall’s database. Values are updated as soon as a new
     /// card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListLandTypes();
+    Task<ScryfallResult<string[]>> ListLandTypes();
 
     /// <summary>
     /// Returns a Catalog of all spell types in Scryfall’s database. Values are updated as soon as a new
     /// card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListSpellTypes();
+    Task<ScryfallResult<string[]>> ListSpellTypes();
 
     /// <summary>
     /// Returns a Catalog of all artifact types in Scryfall’s database. Values are updated as soon as a
     /// new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListArtifactTypes();
+    Task<ScryfallResult<string[]>> ListArtifactTypes();
 
     /// <summary>
     /// Returns a Catalog of all enchantment types in Scryfall’s database. Values are updated as soon as a
     /// new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListEnchantmentTypes();
+    Task<ScryfallResult<string[]>> ListEnchantmentTypes();
 
     /// <summary>
     /// Returns a Catalog of all possible values for a creature or vehicle’s power in Scryfall’s database.
     /// Values are updated as soon as a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListPowers();
+    Task<ScryfallResult<string[]>> ListPowers();
 
     /// <summary>
     /// Returns a Catalog of all possible values for a creature or vehicle’s toughness in Scryfall’s database.
     /// Values are updated as soon as a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListToughnesses();
+    Task<ScryfallResult<string[]>> ListToughnesses();
 
     /// <summary>
     /// Returns a Catalog of all possible values for a Planeswalker’s loyalty in Scryfall’s database. Values
     /// are updated as soon as a new card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListLoyalties();
+    Task<ScryfallResult<string[]>> ListLoyalties();
 
     /// <summary>
     /// Returns a Catalog of all card watermarks in Scryfall’s database. Values are updated as soon as a new
     /// card is entered for spoiler seasons.
     /// </summary>
     /// <returns></returns>
-    Task<string[]> ListWatermarks();
+    Task<ScryfallResult<string[]>> ListWatermarks();
 }

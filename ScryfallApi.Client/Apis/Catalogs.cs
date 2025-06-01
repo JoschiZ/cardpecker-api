@@ -11,19 +11,16 @@ public class Catalogs : ICatalogs
     {
         _restService = restService;
     }
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public async Task<string[]> ListCardNames() => (await _restService.GetAsync<Catalog>("/catalog/card-names").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListWordBank() => (await _restService.GetAsync<Catalog>("/catalog/word-bank").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListCreatureTypes() => (await _restService.GetAsync<Catalog>("/catalog/creature-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListPlaneswalkerTypes() => (await _restService.GetAsync<Catalog>("/catalog/planeswalker-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListLandTypes() => (await _restService.GetAsync<Catalog>("/catalog/land-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListSpellTypes() => (await _restService.GetAsync<Catalog>("/catalog/spell-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListEnchantmentTypes() => (await _restService.GetAsync<Catalog>("/catalog/enchantment-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListArtifactTypes() => (await _restService.GetAsync<Catalog>("/catalog/artifact-types").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListPowers() => (await _restService.GetAsync<Catalog>("/catalog/powers").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListToughnesses() => (await _restService.GetAsync<Catalog>("/catalog/toughnesses").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListLoyalties() => (await _restService.GetAsync<Catalog>("/catalog/loyalties").ConfigureAwait(false)).Data;
-    public async Task<string[]> ListWatermarks() => (await _restService.GetAsync<Catalog>("/catalog/watermarks").ConfigureAwait(false)).Data;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+    public async Task<ScryfallResult<string[]>> ListCardNames() => (await _restService.GetAsync<Catalog>("/catalog/card-names").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListWordBank() => (await _restService.GetAsync<Catalog>("/catalog/word-bank").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListCreatureTypes() => (await _restService.GetAsync<Catalog>("/catalog/creature-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListPlaneswalkerTypes() => (await _restService.GetAsync<Catalog>("/catalog/planeswalker-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListLandTypes() => (await _restService.GetAsync<Catalog>("/catalog/land-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListSpellTypes() => (await _restService.GetAsync<Catalog>("/catalog/spell-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListEnchantmentTypes() => (await _restService.GetAsync<Catalog>("/catalog/enchantment-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListArtifactTypes() => (await _restService.GetAsync<Catalog>("/catalog/artifact-types").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListPowers() => (await _restService.GetAsync<Catalog>("/catalog/powers").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListToughnesses() => (await _restService.GetAsync<Catalog>("/catalog/toughnesses").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListLoyalties() => (await _restService.GetAsync<Catalog>("/catalog/loyalties").ConfigureAwait(false)).Bind(x => x.Data);
+    public async Task<ScryfallResult<string[]>> ListWatermarks() => (await _restService.GetAsync<Catalog>("/catalog/watermarks").ConfigureAwait(false)).Bind(x => x.Data);
 }

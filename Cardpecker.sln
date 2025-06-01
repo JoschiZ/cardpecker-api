@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardpecker.ServiceDefaults"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScryfallApi.Client", "ScryfallApi.Client\ScryfallApi.Client.csproj", "{DB78B931-79BE-4697-86BC-937C0B2817EF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{62CBB943-98F8-461A-8ABA-C2DE81C32EBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScryfallApi.Tests", "ScryfallApi.Tests\ScryfallApi.Tests.csproj", "{ACD09333-176A-4AA4-A09A-1B6D79451D79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB78B931-79BE-4697-86BC-937C0B2817EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD09333-176A-4AA4-A09A-1B6D79451D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD09333-176A-4AA4-A09A-1B6D79451D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD09333-176A-4AA4-A09A-1B6D79451D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD09333-176A-4AA4-A09A-1B6D79451D79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ACD09333-176A-4AA4-A09A-1B6D79451D79} = {62CBB943-98F8-461A-8ABA-C2DE81C32EBE}
 	EndGlobalSection
 EndGlobal

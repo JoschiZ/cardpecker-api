@@ -26,7 +26,7 @@ internal sealed class BaseRestService
         }
     }
 
-    public async Task<T> GetAsync<T>(string resourceUrl, bool useCache = true) where T : BaseItem
+    public async Task<ScryfallResult<T>> GetAsync<T>(string resourceUrl, bool useCache = true) where T : BaseItem
     {
         if (string.IsNullOrWhiteSpace(resourceUrl))
             throw new ArgumentNullException(nameof(resourceUrl));
@@ -41,23 +41,20 @@ internal sealed class BaseRestService
 
         var response = await _httpClient.GetAsync(resourceUrl).ConfigureAwait(false);
         var jsonStream = await response.Content.ReadAsStreamAsync();
-        var obj = await JsonSerializer.DeserializeAsync<T>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
+        var obj = await JsonSerializer.DeserializeAsync<BaseItem>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
         
         if (obj.ObjectType.Equals("error", StringComparison.OrdinalIgnoreCase))
         {
             jsonStream.Position = 0;
             var error = await JsonSerializer.DeserializeAsync<Error>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
-            throw new ScryfallApiException(error.Details)
-            {
-                ResponseStatusCode = response.StatusCode,
-                RequestUri = response.RequestMessage?.RequestUri ,
-                RequestMethod = response.RequestMessage?.Method,
-                ScryfallError = error
-            };
+            return error;
         }
+        
+        jsonStream.Position = 0;
+        obj = await JsonSerializer.DeserializeAsync<T>(jsonStream) ?? throw new ScryfallApiException("Unexpected response from Scryfall API.");
 
         if (useCache) _cache?.Set(cacheKey, obj, _cacheOptions);
 
-        return obj;
+        return (T)obj;
     }
 }

@@ -34,10 +34,10 @@ public class Card : BaseItem
     public bool Booster { get; set; }
 
     [JsonPropertyName("border_color")]
-    public required string BorderColor { get; set; }
+    public string? BorderColor { get; set; }
 
     [JsonPropertyName("card_back_id")]
-    public required string CardBackId { get; set; }
+    public string? CardBackId { get; set; }
 
     /// <summary>
     /// An array of Card Face objects, if this card is multifaced.
@@ -55,13 +55,13 @@ public class Card : BaseItem
     public decimal Cmc { get; set; }
 
     [JsonPropertyName("collector_number")]
-    public required string CollectorNumber { get; set; }
+    public string? CollectorNumber { get; set; }
 
     /// <summary>
     /// This card’s color identity.
     /// </summary>
     [JsonPropertyName("color_identity")]
-    public required string[] ColorIdentity { get; set; }
+    public string[]? ColorIdentity { get; set; }
 
     /// <summary>
     /// The colors in this card’s color indicator, if any.A null value for this field indicates
@@ -92,7 +92,7 @@ public class Card : BaseItem
     public bool? GameChanger { get; set; }
 
     [JsonPropertyName("finishes")]
-    public required string[] Finishes { get; set; }
+    public string[]? Finishes { get; set; }
 
     [JsonPropertyName("flavor_name")]
     public string? FlavorName { get; set; }
@@ -101,7 +101,7 @@ public class Card : BaseItem
     public string? FlavorText { get; set; }
 
     [JsonPropertyName("frame")]
-    public required string Frame { get; set; }
+    public string? Frame { get; set; }
 
     [JsonPropertyName("frame_effects")]
     public string[]? FrameEffects { get; set; }
@@ -110,7 +110,7 @@ public class Card : BaseItem
     public bool FullArt { get; set; }
 
     [JsonPropertyName("games")]
-    public required string[] Games { get; set; }
+    public string[]? Games { get; set; }
 
     /// <summary>
     /// This card’s hand modifier, if it is Vanguard card.This value will contain a delta, such as -1.
@@ -131,28 +131,28 @@ public class Card : BaseItem
     public Guid? IllustrationId { get; set; }
 
     [JsonPropertyName("image_status")]
-    public required string ImageStatus { get; set; }
+    public string? ImageStatus { get; set; }
 
     [JsonPropertyName("image_uris")]
     public Dictionary<string, Uri>? ImageUris { get; set; }
 
     [JsonPropertyName("keywords")]
-    public required string[] Keywords { get; set; }
+    public string[]? Keywords { get; set; }
 
     [JsonPropertyName("lang")]
-    public required string Language { get; set; }
+    public string? Language { get; set; }
 
     /// <summary>
     /// A computer-readable designation for this card’s layout. See the layout article.
     /// </summary>
     [JsonPropertyName("layout")]
-    public required string Layout { get; set; }
+    public string? Layout { get; set; }
 
     /// <summary>
     /// An object describing the legality of this card in different formats
     /// </summary>
     [JsonPropertyName("legalities")]
-    public required Dictionary<string, string> Legalities { get; set; }
+    public Dictionary<string, string>? Legalities { get; set; }
 
     /// <summary>
     /// This card’s life modifier, if it is Vanguard card. This value will contain a delta, such

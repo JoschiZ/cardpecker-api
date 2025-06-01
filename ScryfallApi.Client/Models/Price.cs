@@ -2,7 +2,7 @@
 
 namespace ScryfallApi.Client.Models;
 
-public class Price : BaseItem
+public class Price
 {
     [JsonConverter(typeof(UsDecimalAsStringConverter))]
     [JsonPropertyName("eur")]
