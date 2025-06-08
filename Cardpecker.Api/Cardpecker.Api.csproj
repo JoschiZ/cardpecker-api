@@ -23,12 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Cardpecker.ServiceDefaults\Cardpecker.ServiceDefaults.csproj" />
       <ProjectReference Include="..\MtgJson.Importer\MtgJson.Importer.csproj" />
       <ProjectReference Include="..\ScryfallApi.Client\ScryfallApi.Client.csproj" />

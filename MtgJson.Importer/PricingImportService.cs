@@ -150,7 +150,9 @@ public class PricingImportService
 
     private async Task<IdMapping[]> GetMappingsAsync(CancellationToken cancellationToken)
     {
-        var fs = File.Open("allPrintings.sqlite", FileMode.Create);
+        var tempPath = Path.GetTempPath();
+        var tempFilePath = Path.Combine(tempPath, "allPrintings.sqlite");
+        var fs = File.Open(tempFilePath, FileMode.Create);
         await using (fs.ConfigureAwait(false))
         {
             var xsCompressedAllPrintings = await _httpClient.GetStreamAsync("https://mtgjson.com/api/v5/AllPrintings.sqlite.xz", cancellationToken).ConfigureAwait(false);
@@ -165,7 +167,7 @@ public class PricingImportService
         }
 
         var contextOptions = new DbContextOptionsBuilder<MtgJsonContext>()
-            .UseSqlite("Data Source=allPrintings.sqlite")
+            .UseSqlite($"Data Source={tempFilePath}")
             .Options;
 
         var context = new MtgJsonContext(contextOptions);

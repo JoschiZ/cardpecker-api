@@ -17,6 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFiles", "{C491F061-B84C-46CF-A6CA-77AA053D07AB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		publish.bat = publish.bat
 	EndProjectSection
 EndProject
 Global

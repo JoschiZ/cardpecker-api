@@ -14,5 +14,7 @@ var api = builder
     .WithReference(db)
     .WaitFor(db);
 
+builder
+    .AddDockerComposeEnvironment("compose");
 
 builder.Build().Run();
