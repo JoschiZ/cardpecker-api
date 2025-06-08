@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:F:\Downloads\AllPrintings.sqlite\AllPrintings.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@192.168.178.22" uuid="e239eb23-d8f8-460c-b13d-5e647ee6a03f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://192.168.178.22:8000/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

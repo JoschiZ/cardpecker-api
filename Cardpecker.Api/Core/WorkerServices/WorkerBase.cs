@@ -17,7 +17,7 @@ internal class WorkerBase<TWorkload>
     private readonly ILogger<WorkerBase<TWorkload>> _logger;
     private static readonly string WorkloadName = typeof(TWorkload).Name;
     
-    public WorkerBase(IServiceScopeFactory scopeFactory, IOptions<WorkerOptions<TWorkload>> options, ILogger<WorkerBase<TWorkload>> logger)
+    protected WorkerBase(IServiceScopeFactory scopeFactory, IOptions<WorkerOptions<TWorkload>> options, ILogger<WorkerBase<TWorkload>> logger)
     {
         _scopeFactory = scopeFactory;
         _options = options;
@@ -31,37 +31,45 @@ internal class WorkerBase<TWorkload>
         var timer = new PeriodicTimer(_options.Value.ExecutionInterval);
         do
         {
-            await using var scope = _scopeFactory.CreateAsyncScope();
-            using var activity = CardpeckerTracing.Source.StartActivity($"workload.{WorkloadName}");
-            using var loggerScope = _logger.BeginScope("Start Workload {workloadName}", WorkloadName);
-            
-            var context = scope.ServiceProvider.GetRequiredService<PeckerContext>();
-            
-            var state = await context
-                .WorkerStates
-                .FirstOrDefaultAsync(x => x.Name == WorkloadName, stoppingToken)
-                .ConfigureAwait(false);
-
-            if (state is null)
+            try
             {
-                state = new WorkerState() { Name = WorkloadName };
-                context.WorkerStates.Add(state);
-            }
+                await using var scope = _scopeFactory.CreateAsyncScope();
+                using var activity = CardpeckerTracing.Source.StartActivity($"workload.{WorkloadName}");
+                using var loggerScope = _logger.BeginScope("Start Workload {workloadName}", WorkloadName);
 
-            if (state.LastRun is not null)
-            {
-                var nextExecution = state.LastRun.Value.ToUniversalTime().Add(_options.Value.ExecutionInterval);
-                var timeToWait = nextExecution - DateTimeOffset.UtcNow;
-                if (timeToWait > TimeSpan.Zero)
+                var context = scope.ServiceProvider.GetRequiredService<PeckerContext>();
+
+                var state = await context
+                    .WorkerStates
+                    .FirstOrDefaultAsync(x => x.Name == WorkloadName, stoppingToken)
+                    .ConfigureAwait(false);
+
+                if (state is null)
                 {
-                    await Task.Delay(timeToWait, stoppingToken).ConfigureAwait(false);
+                    state = new WorkerState() { Name = WorkloadName };
+                    context.WorkerStates.Add(state);
                 }
+
+                if (state.LastRun is not null)
+                {
+                    var nextExecution = state.LastRun.Value.ToUniversalTime().Add(_options.Value.ExecutionInterval);
+                    var timeToWait = nextExecution - DateTimeOffset.UtcNow;
+                    if (timeToWait > TimeSpan.Zero)
+                    {
+                        await Task.Delay(timeToWait, stoppingToken).ConfigureAwait(false);
+                    }
+                }
+
+                await DoWork(scope.ServiceProvider, stoppingToken);
+                state.LastRun = DateTimeOffset.UtcNow;
+                await context.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
+                _logger.LogInformation("Finished Workload");
             }
-            
-            await DoWork(scope.ServiceProvider, stoppingToken);
-            state.LastRun = DateTimeOffset.UtcNow;
-            await context.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
-            _logger.LogInformation("Finished Workload");
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex, "Workload {workloadName} failed", WorkloadName);
+            }
+
         } while (await timer.WaitForNextTickAsync(stoppingToken));
     }
 

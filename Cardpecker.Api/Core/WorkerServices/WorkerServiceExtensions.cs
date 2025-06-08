@@ -21,7 +21,7 @@ internal static class WorkerServiceExtensions
         services.AddHostedService<TWorker>();
 
         services.Configure<HostOptions>(x =>
-            x.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore);
+            x.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.StopHost);
         return services;
 
     }

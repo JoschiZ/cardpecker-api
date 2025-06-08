@@ -15,6 +15,13 @@ var api = builder
     .WaitFor(db);
 
 builder
-    .AddDockerComposeEnvironment("compose");
+    .AddDockerComposeEnvironment("compose")
+    .ConfigureComposeFile(x =>
+    {
+        foreach (var (name, service) in x.Services)
+        {
+            service.Restart = "unless-stopped";
+        }
+    });
 
 builder.Build().Run();
