@@ -41,6 +41,12 @@ public class GetPricesEndpoint : Endpoint<GetPricesRequest, Results<Ok<CardPrice
                 IsMagicOnline = pricingPoint.IsMagicOnline,
                 Currency = pricingPoint.Currency,
             }), cancellationToken: ct);
+
+        if (prices.Count == 0)
+        {
+            TypedResults.NotFound();
+        }
+        
         return TypedResults.Ok(new CardPricesResponse() { ScryfallId = req.ScryfallId, Prices = prices });
     }
 }
