@@ -5,21 +5,27 @@ using ScryfallApi.Client.Models;
 
 namespace Cardpecker.Api.MagicTheGathering.Search;
 
+/// <summary>
+/// Find a magic card by its name
+/// </summary>
 public class SearchEndpoint : Endpoint<SearchEndpoint.Request, Results<Ok<IEnumerable<Card>>, NotFound>>
 {
     private readonly ScryfallApiClient _scryfallApiClient;
 
+    /// <inheritdoc />
     public SearchEndpoint(ScryfallApiClient scryfallApiClient)
     {
         _scryfallApiClient = scryfallApiClient;
     }
 
+    /// <inheritdoc />
     public override void Configure()
     {
         AllowAnonymous();
         Get(ApiRoutes.MagicTheGathering.Search);
     }
 
+    /// <inheritdoc />
     public override async Task<Results<Ok<IEnumerable<Card>>, NotFound>> ExecuteAsync(Request req, CancellationToken ct)
     {
 
@@ -44,8 +50,14 @@ public class SearchEndpoint : Endpoint<SearchEndpoint.Request, Results<Ok<IEnume
         return TypedResults.NotFound();
     }
 
+    /// <summary>
+    /// A request to find a given magic card
+    /// </summary>
     public class Request
     {
+        /// <summary>
+        /// A valid scryfall query or a card name
+        /// </summary>
         public required string Query { get; set; }
     }
 }

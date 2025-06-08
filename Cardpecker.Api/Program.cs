@@ -25,6 +25,7 @@ services
         x.DocumentSettings = settings =>
         {
             settings.MarkNonNullablePropsAsRequired();
+            settings.SchemaSettings.GenerateEnumMappingDescription = true;
         };
         x.UseOneOfForPolymorphism = true;
     });
@@ -57,7 +58,7 @@ app.UseFastEndpoints(options =>
     options.Errors.UseProblemDetails();
     options.Versioning.Prefix = "v";
     options.Versioning.PrependToRoute = true;
-    options.Serializer.Options.Converters.Add(new JsonStringEnumConverter());
+    //options.Serializer.Options.Converters.Add(new JsonStringEnumConverter());
 });
 
 if (app.Environment.IsDevelopment())

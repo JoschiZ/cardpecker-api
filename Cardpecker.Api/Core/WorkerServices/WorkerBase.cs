@@ -4,7 +4,11 @@ using Microsoft.Extensions.Options;
 
 namespace Cardpecker.Api.Core.WorkerServices;
 
-public class WorkerBase<TWorkload>
+/// <summary>
+/// The baseclass for a background worker performing periodically scheduled tasks
+/// </summary>
+/// <typeparam name="TWorkload"></typeparam>
+internal class WorkerBase<TWorkload>
     :BackgroundService
     where TWorkload : IWorkload
 {
@@ -62,7 +66,7 @@ public class WorkerBase<TWorkload>
     }
 
     /// <summary>
-    /// This method is called every workcycle
+    /// This method is called every work cycle
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <param name="stoppingToken"></param>

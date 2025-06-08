@@ -1,19 +1,22 @@
 ﻿using Cardpecker.Api.Core.WorkerServices;
 using EFCore.BulkExtensions;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MtgJson.Importer;
 
 namespace Cardpecker.Api.MagicTheGathering.Pricing;
 
-public class PricingWorker : WorkerBase<ImportPricingWorkload>
+[UsedImplicitly]
+internal class PricingWorker : WorkerBase<ImportPricingWorkload>
 {
     public PricingWorker(IServiceScopeFactory scopeFactory, IOptions<WorkerOptions<ImportPricingWorkload>> options, ILogger<WorkerBase<ImportPricingWorkload>> logger) : base(scopeFactory, options, logger)
     {
     }
 }
 
-public class ImportPricingWorkload : IWorkload
+[UsedImplicitly]
+internal class ImportPricingWorkload : IWorkload
 {
     private readonly PeckerContext _context;
     private readonly PricingImportService _importService;
