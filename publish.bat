@@ -10,7 +10,9 @@ scp -r ./temp/* joschi@media.joschiz.pro:~/projects/cardpecker-api
 
 rmdir -r ./temp
 
-ssh joschi@media.joschiz.pro  ^
-cd ~/projects/cardpecker-api && ^
-sudo docker load -i cardpecker-api.tar && ^
-sudo docker compose up -d
+ECHO ENTER THE FOLLOWING COMMANDS INTO THE SSH SESSION
+ECHO cd ~/projects/cardpecker-api
+ECHO sudo docker load -i cardpecker-api.tar
+ECHO sudo docker compose up -d
+
+ssh joschi@media.joschiz.pro
