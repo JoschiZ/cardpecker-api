@@ -1,0 +1,1 @@
+﻿internal record IdMapping(Guid MtgJsonId, Guid ScryfallId);

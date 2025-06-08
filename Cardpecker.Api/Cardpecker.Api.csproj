@@ -9,10 +9,15 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.3.0" />
+        <PackageReference Include="EFCore.BulkExtensions.PostgreSql" Version="9.0.1" />
         <PackageReference Include="FastEndpoints.Swagger" Version="6.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.4.7" />
-        <PackageReference Include="Scalar.AspNetCore.Swashbuckle" Version="2.4.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.4.13" />
+        <PackageReference Include="Scalar.AspNetCore.Swashbuckle" Version="2.4.13" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +28,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cardpecker.ServiceDefaults\Cardpecker.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\MtgJson.Importer\MtgJson.Importer.csproj" />
       <ProjectReference Include="..\ScryfallApi.Client\ScryfallApi.Client.csproj" />
     </ItemGroup>
 
