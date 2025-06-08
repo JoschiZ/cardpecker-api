@@ -28,7 +28,10 @@ var tempo = builder.AddContainer("tempo", "grafana/tempo")
     .WithArgs("-config.file=/etc/tempo/tempo.yaml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/write")
     .WithHttpEndpoint(targetPort: 4317 , name: "http")
-    .WithHttpEndpoint(targetPort: 3200, name: "import");
+    .WithHttpEndpoint(targetPort: 3200, name: "import")
+    .WithContainerName("tempo");
+
+tempo.WithEnvironment("TEMPO_ENDPOINT", $"{tempo.GetEndpoint("http")}");
 
 var grafana = builder.AddContainer("grafana", "grafana/grafana")
         .WithBindMount("../OpenTelemetry/grafana/config", "/etc/grafana", isReadOnly: true)

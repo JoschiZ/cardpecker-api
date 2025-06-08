@@ -37,8 +37,6 @@ internal class WorkerBase<TWorkload>
             try
             {
                 await using var scope = _scopeFactory.CreateAsyncScope();
-                using var activity = CardpeckerTracing.Source.StartActivity($"workload.{WorkloadName}");
-                using var loggerScope = _logger.BeginScope("Start Workload {workloadName}", WorkloadName);
 
                 var context = scope.ServiceProvider.GetRequiredService<PeckerContext>();
 
@@ -63,6 +61,9 @@ internal class WorkerBase<TWorkload>
                     }
                 }
 
+                using var activity = CardpeckerTracing.Source.StartActivity($"workload.{WorkloadName}");
+                using var loggerScope = _logger.BeginScope("Start Workload {workloadName}", WorkloadName);
+                
                 await DoWork(scope.ServiceProvider, state, stoppingToken);
                 state.LastRun = DateTimeOffset.UtcNow;
                 await context.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
