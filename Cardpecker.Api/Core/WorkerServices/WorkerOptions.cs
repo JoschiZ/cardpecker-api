@@ -3,4 +3,6 @@
 public class WorkerOptions<TWorkload> where TWorkload : IWorkload
 {
     public required TimeSpan ExecutionInterval { get; init; } 
+    
+    public TimeOnly? DontRunBefore { get; init; }
 }

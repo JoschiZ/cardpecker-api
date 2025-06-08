@@ -26,11 +26,14 @@ internal class WorkerBase<TWorkload>
 
     protected sealed override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-
-        
         var timer = new PeriodicTimer(_options.Value.ExecutionInterval);
         do
         {
+            if (_options.Value.DontRunBefore is not null && TimeOnly.FromDateTime(DateTime.UtcNow) < _options.Value.DontRunBefore.Value)
+            {
+                continue;
+            }
+            
             try
             {
                 await using var scope = _scopeFactory.CreateAsyncScope();
@@ -60,7 +63,7 @@ internal class WorkerBase<TWorkload>
                     }
                 }
 
-                await DoWork(scope.ServiceProvider, stoppingToken);
+                await DoWork(scope.ServiceProvider, state, stoppingToken);
                 state.LastRun = DateTimeOffset.UtcNow;
                 await context.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
                 _logger.LogInformation("Finished Workload");
@@ -77,8 +80,9 @@ internal class WorkerBase<TWorkload>
     /// This method is called every work cycle
     /// </summary>
     /// <param name="serviceProvider"></param>
+    /// <param name="state"></param>
     /// <param name="stoppingToken"></param>
-    protected virtual async Task DoWork(IServiceProvider serviceProvider, CancellationToken stoppingToken)
+    protected virtual async Task DoWork(IServiceProvider serviceProvider, WorkerState state, CancellationToken stoppingToken)
     {
         var workload = serviceProvider.GetRequiredService<TWorkload>();
         await workload.StartAsync(stoppingToken);
