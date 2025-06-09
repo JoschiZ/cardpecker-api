@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -39,18 +41,36 @@ public static class Extensions
 
     public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder)
     {
+        var otelOptions = builder.Configuration.GetSection(OtelOptions.Section).Get<OtelOptions>();
+    
+        
         builder.Logging.AddOpenTelemetry(logging =>
         {
             logging.IncludeFormattedMessage = true;
             logging.IncludeScopes = true;
         });
 
+
+
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
                 metrics.AddAspNetCoreInstrumentation()
-                       .AddHttpClientInstrumentation()
-                       .AddRuntimeInstrumentation();
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation();
+
+                if (otelOptions is not null)
+                {
+                    metrics.AddOtlpExporter((options) =>
+                    {
+                        options.ConfigureExporter(otelOptions);
+                    });
+                    metrics.ConfigureResource(resourceBuilder =>
+                    {
+                        resourceBuilder.ConfigureResources(otelOptions);
+                    });
+                }
+
             })
             .WithTracing(tracing =>
             {
@@ -63,17 +83,68 @@ public static class Extensions
                               || httpContext.Request.Path.StartsWithSegments(AlivenessEndpointPath))
                     )
                     .AddHttpClientInstrumentation();
+                
+                if (otelOptions is not null)
+                {
+                    tracing.AddOtlpExporter((options) =>
+                    {
+                        options.ConfigureExporter(otelOptions);
+                    });
+                    tracing.ConfigureResource(resourceBuilder =>
+                    {
+                        resourceBuilder.ConfigureResources(otelOptions);
+                    });
+                }
+
+            })
+            .WithLogging(logging =>
+            {
+                if (otelOptions is not null)
+                {
+                    logging.AddOtlpExporter((options) =>
+                    {
+                        options.ConfigureExporter(otelOptions);
+                    });
+                    logging.ConfigureResource(resourceBuilder =>
+                    {
+                        resourceBuilder.ConfigureResources(otelOptions);
+                    });
+                }
             });
 
-        builder.AddOpenTelemetryExporters();
+        if (otelOptions is null)
+        {
+            builder.AddOpenTelemetryExporters();
+        }
+        
 
         return builder;
+    }
+
+    private static OtlpExporterOptions ConfigureExporter(this OtlpExporterOptions options, OtelOptions otelOptions)
+    {
+        options.Endpoint = otelOptions.CollectorUri;
+        options.Protocol = OtlpExportProtocol.Grpc;
+        
+        return options;
+    }
+
+    private static ResourceBuilder ConfigureResources(this ResourceBuilder builder, OtelOptions otelOptions)
+    {
+        builder.AddAttributes([
+            new KeyValuePair<string, object>("service.name", otelOptions.ServiceName),
+            new KeyValuePair<string, object>("service.instance.id", otelOptions.InstanceName),
+        ]);
+        
+        return builder; 
     }
 
     private static IHostApplicationBuilder AddOpenTelemetryExporters(this IHostApplicationBuilder builder)
     {
         var useOtlpExporter = !string.IsNullOrWhiteSpace(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
 
+
+        
         if (useOtlpExporter)
         {
             builder.Services.AddOpenTelemetry().UseOtlpExporter();

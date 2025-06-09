@@ -1,5 +1,3 @@
-set PASSWORD=%1
-
 mkdir temp
 aspire publish -o temp 
 
