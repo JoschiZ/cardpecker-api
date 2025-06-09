@@ -15,12 +15,5 @@
       <jdbc-url>jdbc:postgresql://192.168.178.22:8000/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="cardpecker" uuid="7de30587-8ce1-432c-9bae-f9095bbbbc9f">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:56528/cardpecker?password=3pB%7DujujTQThHbB*dRsu3X&amp;user=postgres</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

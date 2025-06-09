@@ -4,7 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 *.sqlite*
-.idea
+.idea/
 *.env*
 .aspire
 temp/
