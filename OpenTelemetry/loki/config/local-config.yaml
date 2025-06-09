@@ -1,9 +1,6 @@
 limits_config:
   allow_structured_metadata: true
   volume_enabled: true
-  
-pattern_ingester:
-  enabled: true
 
 auth_enabled: false
 
@@ -30,6 +27,3 @@ schema_config:
       index:
         prefix: index_
         period: 24h
-
-ruler:
-  alertmanager_url: http://localhost:9093

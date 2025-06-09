@@ -7,6 +7,8 @@ datasources:
     # Access mode - proxy (server in the UI) or direct (browser in the UI).
     url: $PROMETHEUS_ENDPOINT
     uid: PBFA97CFB590B2093
+    jsonData:
+      httpMethod: GET
   - name: Tempo
     type: tempo
     access: proxy
@@ -22,6 +24,8 @@ datasources:
       httpMethod: GET
       serviceMap:
         datasourceUid: prometheus
+      streamingEnabled:
+        search: true
   - name: Loki
     type: loki
     access: proxy

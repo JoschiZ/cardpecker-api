@@ -14,17 +14,20 @@ var db = sqlServer.AddDatabase(AspireConstants.Databases.Database);
 
 var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
     .WithBindMount("../OpenTelemetry/prometheus", "/etc/prometheus", isReadOnly: true)
+    .WithVolume("prometheus-storage", "/prometheus")
     .WithArgs("--web.enable-otlp-receiver", "--config.file=/etc/prometheus/prometheus.yml")
     .WithHttpEndpoint(targetPort: 9090, name: "http");
 
 
 
 var loki = builder.AddContainer("loki", "grafana/loki")
-    .WithBindMount("../OpenTelemetry/loki/config", "/etc/loki", isReadOnly: true)
+    .WithVolume("loki-storage", "/loki/chunks")
+    .WithBindMount("../OpenTelemetry/loki/config", "/loki", isReadOnly: true)
     .WithHttpEndpoint(targetPort: 3100, name: "http");
 
 var tempo = builder.AddContainer("tempo", "grafana/tempo")
     .WithBindMount("../OpenTelemetry/tempo/config", "/etc/tempo", isReadOnly: true)
+    .WithVolume("tempo-data", "/var/tempo")
     .WithArgs("-config.file=/etc/tempo/tempo.yaml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/write")
     .WithHttpEndpoint(targetPort: 4317 , name: "http")
