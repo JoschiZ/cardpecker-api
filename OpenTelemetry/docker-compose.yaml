@@ -1,0 +1,105 @@
+services:
+  prometheus:
+    image: "prom/prometheus:latest"
+    command:
+      - "--web.enable-otlp-receiver"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    volumes:
+      - type: "bind"
+        target: "/etc/prometheus"
+        source: "./prometheus"
+        read_only: true
+      - type: "volume"
+        target: "/prometheus"
+        source: "prometheus-storage"
+        read_only: false
+    ports:
+      - "9090:9090"
+    networks:
+      - "otel"
+    restart: "unless-stopped"
+  loki:
+    image: "grafana/loki:latest"
+    volumes:
+      - type: "volume"
+        target: "/loki/chunks"
+        source: "loki-storage"
+        read_only: false
+      - type: "bind"
+        target: "/loki"
+        source: "./loki/config"
+        read_only: false
+    networks:
+      - "otel"
+    restart: "unless-stopped"
+  tempo:
+    image: "grafana/tempo:latest"
+    command:
+      - "-config.file=/etc/tempo/tempo.yaml"
+    environment:
+      PROMETHEUS_ENDPOINT: "http://prometheus:9090/api/v1/write"
+      TEMPO_ENDPOINT: "http://tempo:4317"
+    volumes:
+      - type: "bind"
+        target: "/etc/tempo"
+        source: "./tempo/config"
+        read_only: true
+      - type: "volume"
+        target: "/var/tempo"
+        source: "tempo-data"
+        read_only: false
+    networks:
+      - "otel"
+    restart: "unless-stopped"
+  grafana:
+    image: "grafana/grafana:latest"
+    environment:
+      PROMETHEUS_ENDPOINT: "http://prometheus:9090"
+      LOKI_ENDPOINT: "http://loki:3100"
+      TEMPO_ENDPOINT: "http://tempo:3200"
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: "bind"
+        target: "/etc/grafana"
+        source: "./grafana\\config"
+        read_only: true
+      - type: "bind"
+        target: "/var/lib/grafana/dashboards"
+        source: "./grafana\\dashboards"
+        read_only: true
+    networks:
+      - "otel"
+    restart: "unless-stopped"
+  otelcollector:
+    container_name: otelcollector
+    image: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.123.0"
+    environment:
+      PROMETHEUS_ENDPOINT: "http://prometheus:9090/api/v1/otlp"
+      LOKI_ENDPOINT: "http://loki:3100/otlp"
+      TEMPO_ENDPOINT: "http://tempo:4317"
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    volumes:
+      - type: "bind"
+        target: "/etc/otelcol-contrib/config.yaml"
+        source: "./otelcollector/config.yaml"
+        read_only: false
+    networks:
+      - "otel"
+    restart: "unless-stopped"
+networks:
+  otel:
+    name: "otel"
+    driver: "bridge"
+    enable_ipv6: "true"
+volumes:
+  postgres-data:
+    driver: "local"
+  prometheus-storage:
+    driver: "local"
+  loki-storage:
+    driver: "local"
+  tempo-data:
+    driver: "local"

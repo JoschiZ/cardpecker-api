@@ -8,3 +8,5 @@ riderModule.iml
 *.env*
 .aspire
 temp/
+OpenTelemetry/loki/config
+!OpenTelemetry/loki/config/local-config.yaml

@@ -12,13 +12,6 @@ processors:
 exporters:
   debug:
     verbosity: detailed
-  otlp/aspire:
-    endpoint: ${env:ASPIRE_ENDPOINT}
-    headers:
-      x-otlp-api-key: ${env:ASPIRE_API_KEY}
-    tls:
-        insecure: ${env:ASPIRE_INSECURE}
-        insecure_skip_verify: true # Required in local development because cert is localhost and the endpoint is host.docker.internal
   otlphttp/prometheus:
     endpoint: ${env:PROMETHEUS_ENDPOINT}
     tls:
@@ -36,17 +29,14 @@ service:
       receivers: [otlp]
       #processors: [batch]
       exporters:
-        - otlp/aspire
         - otlp/tempo
     logs:
       receivers: [otlp]
       processors: [batch]
       exporters: 
-        - otlp/aspire
         - otlphttp/loki
     metrics:
       receivers: [otlp]
       processors: [batch]
       exporters:
-        - otlp/aspire
         - otlphttp/prometheus
