@@ -1,0 +1,42 @@
+services:
+  cardpecker-postgres:
+    image: "docker.io/library/postgres:17.4"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "${CARDPECKER_POSTGRES_PASSWORD}"
+    ports:
+      - "8000:5432"
+    volumes:
+      - type: "volume"
+        target: "/var/lib/postgresql/data"
+        source: "cardpecker.apphost-b90cf92c98-cardpecker-postgres-data"
+        read_only: false
+    networks:
+      - "aspire"
+    restart: "unless-stopped"
+  cardpecker-api:
+    image: "joschigrey/cardpecker-api:latest"
+    environment:
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES: "true"
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES: "true"
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: "in_memory"
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      HTTP_PORTS: "8001"
+      ConnectionStrings__cardpecker: "Host=cardpecker-postgres;Port=5432;Username=postgres;Password=${CARDPECKER_POSTGRES_PASSWORD};Database=cardpecker"
+    ports:
+      - "8002:8001"
+      - "8004:8003"
+    depends_on:
+      cardpecker-postgres:
+        condition: "service_started"
+    networks:
+      - "aspire"
+    restart: "unless-stopped"
+networks:
+  aspire:
+    driver: "bridge"
+volumes:
+  cardpecker.apphost-b90cf92c98-cardpecker-postgres-data:
+    driver: "local"

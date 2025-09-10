@@ -5,8 +5,8 @@ namespace MtgJson.Importer.Pricing;
 internal class PriceFormats
 {
     [JsonPropertyName("mtgo")]
-    public Dictionary<PricingProvider, PriceList> MagicOnline { get; set; } = [];
+    public Dictionary<string, PriceList> MagicOnline { get; set; } = [];
     
     [JsonPropertyName("paper")]
-    public Dictionary<PricingProvider, PriceList> PaperMagic { get; set; } = [];
+    public Dictionary<string, PriceList> PaperMagic { get; set; } = [];
 }
