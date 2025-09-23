@@ -16,7 +16,7 @@ internal class WorkerBase<TWorkload>
     private readonly IOptions<WorkerOptions<TWorkload>> _options;
     private readonly ILogger<WorkerBase<TWorkload>> _logger;
     private static readonly string WorkloadName = typeof(TWorkload).Name;
-    private bool _isFirstRun;
+    private bool _isFirstRun = true;
     
     protected WorkerBase(IServiceScopeFactory scopeFactory, IOptions<WorkerOptions<TWorkload>> options, ILogger<WorkerBase<TWorkload>> logger)
     {
@@ -34,7 +34,7 @@ internal class WorkerBase<TWorkload>
             {
                 continue;
             }
-            _isFirstRun = true;
+            _isFirstRun = false;
             try
             {
                 await using var scope = _scopeFactory.CreateAsyncScope();
