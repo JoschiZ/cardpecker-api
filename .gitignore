@@ -12,3 +12,4 @@ OpenTelemetry/loki/config
 !OpenTelemetry/loki/config/local-config.yaml
 Cardpecker.Api/dotMemoryclt
 publish
+Cardpecker.Api/dotMemoryclt.zip
