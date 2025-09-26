@@ -170,8 +170,7 @@ public class PricingImportService
             .UseSqlite($"Data Source={tempFilePath}")
             .Options;
 
-        var context = new MtgJsonContext(contextOptions);
-        await using var _ = context.ConfigureAwait(false);
+        await using var context = new MtgJsonContext(contextOptions);
 
 
         var idMappings = await context

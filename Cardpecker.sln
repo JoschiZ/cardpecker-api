@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFile
 		publish.bat = publish.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadpekcer.Api.LoadTester", "Cadpekcer.Api.LoadTester\Cadpekcer.Api.LoadTester.csproj", "{58A65282-1879-4861-B022-C85FA3A6C5CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{DB6F932F-6FCF-4CCA-91A2-1A8FCDFA0F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6F932F-6FCF-4CCA-91A2-1A8FCDFA0F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB6F932F-6FCF-4CCA-91A2-1A8FCDFA0F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A65282-1879-4861-B022-C85FA3A6C5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A65282-1879-4861-B022-C85FA3A6C5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A65282-1879-4861-B022-C85FA3A6C5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A65282-1879-4861-B022-C85FA3A6C5CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{ACD09333-176A-4AA4-A09A-1B6D79451D79} = {62CBB943-98F8-461A-8ABA-C2DE81C32EBE}

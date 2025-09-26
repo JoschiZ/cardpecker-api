@@ -10,3 +10,5 @@ riderModule.iml
 temp/
 OpenTelemetry/loki/config
 !OpenTelemetry/loki/config/local-config.yaml
+Cardpecker.Api/dotMemoryclt
+publish

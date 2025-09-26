@@ -19,12 +19,9 @@ services:
   cardpecker-api:
     image: "joschigrey/cardpecker-api:latest"
     environment:
-      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES: "true"
-      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES: "true"
-      OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: "in_memory"
-      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
       HTTP_PORTS: "8001"
       ConnectionStrings__cardpecker: "Host=cardpecker-postgres;Port=5432;Username=postgres;Password=${CARDPECKER_POSTGRES_PASSWORD};Database=cardpecker"
+      Logging__LogLevel__Default: "Warning"
     ports:
       - "8002:8001"
       - "8004:8003"
