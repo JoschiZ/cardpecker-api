@@ -29,7 +29,7 @@ internal class ImportPricingWorkload : IWorkload
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        if (!await CheckImportRequiredAsync(cancellationToken))
+        if (!await CheckImportRequiredAsync(cancellationToken).ConfigureAwait(false))
         {
             return;
         }
@@ -38,14 +38,14 @@ internal class ImportPricingWorkload : IWorkload
 
 
 
-        var pricingData = (await dataTask).ToArray();
+        var pricingData = (await dataTask.ConfigureAwait(false)).ToArray();
         var cardData = pricingData
             .GroupBy(x => x.ScryfallId, (scryfallId, infos) => new MagicCardInfo()
             {
                 ScryfallId = scryfallId
             })
             .Select(x => x);
-        await _context.BulkInsertOrUpdateAsync(cardData, cancellationToken: cancellationToken);
+        await _context.BulkInsertOrUpdateAsync(cardData, cancellationToken: cancellationToken).ConfigureAwait(false);
 
         var pricings = pricingData
             .Select(info => new MagicCardPricingPoint
@@ -60,8 +60,8 @@ internal class ImportPricingWorkload : IWorkload
             })
             .DistinctBy(x => new { x.ScryfallId, x.PricingProvider, x.PrintingVersion, x.IsMagicOnline, x.Currency });
         
-        await _context.TruncateAsync<MagicCardPricingPoint>(cancellationToken: cancellationToken);
-        await _context.BulkInsertAsync(pricings, cancellationToken: cancellationToken);
+        await _context.TruncateAsync<MagicCardPricingPoint>(cancellationToken: cancellationToken).ConfigureAwait(false);
+        await _context.BulkInsertAsync(pricings, cancellationToken: cancellationToken).ConfigureAwait(false);
 
     }
 
@@ -69,7 +69,7 @@ internal class ImportPricingWorkload : IWorkload
 
     private async Task<bool> CheckImportRequiredAsync(CancellationToken cancellationToken)
     {
-        var firstPrice = await _context.MagicCardPricingPoints.FirstOrDefaultAsync(cancellationToken);
+        var firstPrice = await _context.MagicCardPricingPoints.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
 
         if (firstPrice is null)
         {

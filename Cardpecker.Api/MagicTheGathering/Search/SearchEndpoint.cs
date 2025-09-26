@@ -29,7 +29,7 @@ public class SearchEndpoint : Endpoint<SearchEndpoint.Request, Results<Ok<IEnume
     public override async Task<Results<Ok<IEnumerable<Card>>, NotFound>> ExecuteAsync(Request req, CancellationToken ct)
     {
 
-        var searchResult = await _scryfallApiClient.Cards.Named(req.Query, true);
+        var searchResult = await _scryfallApiClient.Cards.Named(req.Query, true).ConfigureAwait(false);
         
         if (searchResult.IsSuccess)
         {
@@ -40,7 +40,7 @@ public class SearchEndpoint : Endpoint<SearchEndpoint.Request, Results<Ok<IEnume
         {
             Sort = SearchOptions.CardSort.Name,
             Mode = SearchOptions.RollupMode.Cards,
-        });
+        }).ConfigureAwait(false);
 
         if (syntaxSearch.IsSuccess)
         {

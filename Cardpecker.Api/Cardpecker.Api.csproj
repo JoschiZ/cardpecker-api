@@ -18,6 +18,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="PokemonTcgSdk" Version="2.5.0" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.8.5" />
         <PackageReference Include="Scalar.AspNetCore.Swashbuckle" Version="2.8.5" />
     </ItemGroup>
@@ -32,6 +33,33 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\dotMemory.exe.config" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.Profiler.Windows.ElevationAgent.exe.config" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.Profiler.Windows.Impl.dll.config" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.Profiler.Windows.RemoteAgent.dll.config" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\dotMemory.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\dotMemory.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\dotMemory.runtimeconfig.win.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverter.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverter.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverter.x86.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverter.x86.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverterTest.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetBrains.dotMemory.Core.MemoryDumpConverterTest.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetLauncherILc.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\JetLauncherILc.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\linux-x64\dotnet\crossgen2\crossgen2.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\linux-x64\dotnet\crossgen2\crossgen2.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\linux-x64\dotnet\shared\Microsoft.NETCore.App\8.0.11\Microsoft.NETCore.App.deps.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\linux-x64\dotnet\shared\Microsoft.NETCore.App\8.0.11\Microsoft.NETCore.App.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="dotMemoryclt\tools\NetCore\JetBrains.Annotations.deps.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="PokemonTCG\Core\" />
     </ItemGroup>
 
 </Project>

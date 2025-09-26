@@ -65,7 +65,7 @@ internal class WorkerBase<TWorkload>
                 using var activity = CardpeckerTracing.Source.StartActivity($"workload.{WorkloadName}");
                 using var loggerScope = _logger.BeginScope("Start Workload {workloadName}", WorkloadName);
                 
-                await DoWork(scope.ServiceProvider, state, stoppingToken);
+                await DoWork(scope.ServiceProvider, state, stoppingToken).ConfigureAwait(false);
                 state.LastRun = DateTimeOffset.UtcNow;
                 await context.SaveChangesAsync(stoppingToken).ConfigureAwait(false);
                 _logger.LogInformation("Finished Workload");
@@ -75,7 +75,7 @@ internal class WorkerBase<TWorkload>
                 _logger.LogCritical(ex, "Workload {workloadName} failed", WorkloadName);
             }
 
-        } while (await timer.WaitForNextTickAsync(stoppingToken));
+        } while (await timer.WaitForNextTickAsync(stoppingToken).ConfigureAwait(false));
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ internal class WorkerBase<TWorkload>
     protected virtual async Task DoWork(IServiceProvider serviceProvider, WorkerState state, CancellationToken stoppingToken)
     {
         var workload = serviceProvider.GetRequiredService<TWorkload>();
-        await workload.StartAsync(stoppingToken);
+        await workload.StartAsync(stoppingToken).ConfigureAwait(false);
     }
     
 }

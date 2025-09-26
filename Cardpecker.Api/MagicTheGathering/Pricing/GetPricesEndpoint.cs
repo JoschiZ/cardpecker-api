@@ -40,7 +40,7 @@ public class GetPricesEndpoint : Endpoint<GetPricesRequest, Results<Ok<CardPrice
                 Date = pricingPoint.PriceDate,
                 IsMagicOnline = pricingPoint.IsMagicOnline,
                 Currency = pricingPoint.Currency,
-            }), cancellationToken: ct);
+            }), cancellationToken: ct).ConfigureAwait(false);
 
         if (prices.Count == 0)
         {

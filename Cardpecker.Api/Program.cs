@@ -69,7 +69,7 @@ if (app.Environment.IsDevelopment())
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var peckerContext = scope.ServiceProvider.GetRequiredService<PeckerContext>();
-    await peckerContext.Database.MigrateAsync();
+    await peckerContext.Database.MigrateAsync().ConfigureAwait(false);
 }
 
 app.Run();
